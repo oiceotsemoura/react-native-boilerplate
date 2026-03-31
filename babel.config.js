@@ -1,0 +1,51 @@
+module.exports = {
+  presets: ['module:@react-native/babel-preset'],
+  plugins: [
+    '@babel/plugin-transform-export-namespace-from',
+    [
+      'module:react-native-dotenv',
+      {
+        envName: 'APP_ENV',
+        moduleName: '@env',
+        path: '.env',
+        blocklist: null,
+        allowlist: null,
+        safe: false,
+        allowUndefined: true,
+        verbose: false,
+      },
+    ],
+    [
+      "module-resolver",
+      {
+        root: ["./src"],
+        extensions: [
+          ".ios.js",
+          ".android.js",
+          ".js",
+          ".ts",
+          ".tsx",
+          ".json",
+          ".svg",
+          ".png",
+          ".jpg",
+        ],
+        alias: {
+          "@types": "./src/@types",
+          "@components": "./src/components",
+          "@features": "./src/features",
+          "@theme": "./src/theme",
+          "@assets": "./src/assets",
+          "@store": "./src/store",
+          "@navigation": "./src/navigation",
+          "@locales": "./src/locales",
+          "@shared": "./src/shared",
+          "@service": "./src/service",
+          "@tests": "./__tests__",
+          "@config": "./src/config",
+          "@mappers": "./src/mappers",
+        },
+      },
+    ],
+  ],
+};

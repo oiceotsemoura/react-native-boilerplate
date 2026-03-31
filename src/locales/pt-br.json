@@ -1,0 +1,22 @@
+{
+  "common": {
+    "welcome": "Bem-vindo",
+    "login": "Entrar",
+    "logout": "Sair",
+    "email": "E-mail",
+    "password": "Senha",
+    "loading": "Carregando...",
+    "error": "Erro",
+    "success": "Sucesso",
+    "toggle_theme": "Mudar Tema"
+  },
+  "auth": {
+    "login": {
+      "title": "Fazer Login",
+      "subtitle": "Entre com suas credenciais",
+      "forgotPassword": "Esqueceu a senha?",
+      "noAccount": "Não tem uma conta?",
+      "signUp": "Cadastre-se"
+    }
+  }
+}
