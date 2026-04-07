@@ -1,17 +1,23 @@
 {
   "extends": "expo/tsconfig.base",
   "compilerOptions": {
+    "types": ["jest"],
     "strict": true,
     "paths": {
-      "@/*": [
-        "./*"
-      ]
+      "@types/*": ["./src/@types/*"],
+      "@assets/*": ["./src/assets/*"],
+      "@components/*": ["./src/components/*"],
+      "@features/*": ["./src/features/*"],
+      "@theme/*": ["./src/theme/*"],
+      "@shared/*": ["./src/shared/*"],
+      "@store/*": ["./src/store/*"],
+      "@navigation/*": ["./src/navigation/*"],
+      "@locales/*": ["./src/locales/*"],
+      "@service/*": ["./src/service/*"],
+      "@tests/*": ["./__tests__/*"],
+      "@mappers/*": ["./src/mappers/*"],
+      "@config/*": ["./src/config/*"]
     }
   },
-  "include": [
-    "**/*.ts",
-    "**/*.tsx",
-    ".expo/types/**/*.ts",
-    "expo-env.d.ts"
-  ]
+  "include": ["**/*.ts", "**/*.tsx", ".expo/types/**/*.ts", "expo-env.d.ts"]
 }

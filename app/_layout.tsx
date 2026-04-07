@@ -1,24 +1,40 @@
-import { DarkTheme, DefaultTheme, ThemeProvider } from '@react-navigation/native';
+import '@locales/index';
 import { Stack } from 'expo-router';
-import { StatusBar } from 'expo-status-bar';
-import 'react-native-reanimated';
-
-import { useColorScheme } from '@/hooks/use-color-scheme';
-
-export const unstable_settings = {
-  anchor: '(tabs)',
-};
+import { AppThemeProvider } from '@components/index';
+import { QueryClientProvider } from '@tanstack/react-query';
+import { queryClient } from '@service/config';
+import { useEffect } from 'react';
+import { useRouter, useSegments } from 'expo-router';
+import { useAuthStore } from '@store/auth/authStore';
 
 export default function RootLayout() {
-  const colorScheme = useColorScheme();
+  const { isAuthenticated } = useAuthStore();
+  const segments = useSegments();
+  const router = useRouter();
+
+  useEffect(() => {
+    const inAuthGroup = segments[0] === '(auth)';
+
+    if (
+      // Se o usuário não está autenticado e não está no grupo auth
+      !isAuthenticated &&
+      !inAuthGroup
+    ) {
+      router.replace('/(auth)/login');
+    } else if (isAuthenticated && inAuthGroup) {
+      // Se o usuário está autenticado e está no grupo auth
+      router.replace('/(app)/home');
+    }
+  }, [isAuthenticated, segments]);
 
   return (
-    <ThemeProvider value={colorScheme === 'dark' ? DarkTheme : DefaultTheme}>
-      <Stack>
-        <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
-        <Stack.Screen name="modal" options={{ presentation: 'modal', title: 'Modal' }} />
-      </Stack>
-      <StatusBar style="auto" />
-    </ThemeProvider>
+    <AppThemeProvider>
+      <QueryClientProvider client={queryClient}>
+        <Stack screenOptions={{ headerShown: false }}>
+          <Stack.Screen name="(auth)" options={{ headerShown: false }} />
+          <Stack.Screen name="(app)" options={{ headerShown: false }} />
+        </Stack>
+      </QueryClientProvider>
+    </AppThemeProvider>
   );
 }
